@@ -3,7 +3,7 @@ used_cards = set()
 def gen_dealer():
     while True:
         card = (
-            random.randint(1, 13),
+            random.randint(2, 14),
             random.choice(['Hearts', 'Diamonds', 'Clubs', 'Spades'])
         )
         if card not in used_cards:
@@ -12,8 +12,3 @@ def gen_dealer():
 
 
 
-for i in range(50):
-    gen_dealer()
-    print(i+1)
-
-print(used_cards) 
