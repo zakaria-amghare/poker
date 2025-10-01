@@ -11,4 +11,8 @@ def gen_dealer():
             return card
 
 
+def gen_player():
+    hand = [gen_dealer() for _ in range(5)]
+    print(f"Player's hand: {hand}")
+    return hand
 

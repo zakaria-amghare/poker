@@ -1,9 +1,10 @@
 import os
 import time
 import Card_Generator
-def start_game():
-    print("Game started!")
-    time.sleep(1)
+import Calculate_Winner
+Card_Generator.gen_dealer()
+Card_Generator.gen_dealer()
+Card_Generator.gen_dealer()
+Card_Generator.gen_dealer()
 
-    
-start_game()
+print("cards dealt..."f"{Card_Generator.used_cards}")
