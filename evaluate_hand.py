@@ -1,3 +1,5 @@
+import Calculate_Winner
+
 hand_rankings = {
         "Royal Flush": 10,
         "Straight Flush": 9,
@@ -12,23 +14,32 @@ hand_rankings = {
     }
 
 def evaluate_hand(hand):
-    if royal_flush(hand):
-        return ("Royal Flush", hand_rankings["Royal Flush"])
-    elif straight_flush(hand):
-        return ("Straight Flush", hand_rankings["Straight Flush"])
-    elif four_of_a_kind(hand):
-        return ("Four of a Kind", hand_rankings["Four of a Kind"])
-    elif full_house(hand):
-        return ("Full House", hand_rankings["Full House"])
-    elif flush(hand):
-        return ("Flush", hand_rankings["Flush"])
-    elif straight(hand):
-        return ("Straight", hand_rankings["Straight"])
-    elif three_of_a_kind(hand):
-        return ("Three of a Kind", hand_rankings["Three of a Kind"])
-    elif two_pair(hand):
-        return ("Two Pair", hand_rankings["Two Pair"])
-    elif one_pair(hand):
-        return ("One Pair", hand_rankings["One Pair"])
+    if Calculate_Winner.royal_flush(hand):
+        print(f"Hand: {hand} is a Royal Flush")
+        return  hand_rankings["Royal Flush"]
+    elif Calculate_Winner.straight_flush(hand):
+        print(f"Hand: {hand} is a Straight Flush")
+        return hand_rankings["Straight Flush"]
+    elif Calculate_Winner.four_of_a_kind(hand):
+        print(f"Hand: {hand} is a Four of a Kind")
+        return hand_rankings["Four of a Kind"]
+    elif Calculate_Winner.full_house(hand):
+        print(f"Hand: {hand} is a Full House")
+        return hand_rankings["Full House"]
+    elif Calculate_Winner.flush(hand):
+        print(f"Hand: {hand} is a Flush")
+        return hand_rankings["Flush"]
+    elif Calculate_Winner.straight(hand):
+        print(f"Hand: {hand} is a Straight")
+        return hand_rankings["Straight"]
+    elif Calculate_Winner.three_of_a_kind(hand):
+        print(f"Hand: {hand} is a Three of a Kind")
+        return hand_rankings["Three of a Kind"]
+    elif Calculate_Winner.two_pair(hand):
+        print(f"Hand: {hand} is a Two Pair")
+        return hand_rankings["Two Pair"]
+    elif Calculate_Winner.one_pair(hand):
+        print(f"Hand: {hand} is a One Pair")
+        return hand_rankings["One Pair"]
     else:
-        return ("High Card", hand_rankings["High Card"])
+        return hand_rankings["High Card"]
