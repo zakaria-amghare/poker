@@ -1,0 +1,4 @@
+Player: zaki
+Hand: [(6, 'Spades'), (6, 'Diamonds')]
+Flop: [(13, 'Spades'), (12, 'Clubs'), (9, 'Diamonds')]
+Hand Rank: 2

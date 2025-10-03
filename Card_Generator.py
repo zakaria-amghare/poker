@@ -1,6 +1,6 @@
 import random
 used_cards = set()
-def gen_dealer():
+def gen_card():
     while True:
         card = (
             random.randint(2, 14),
@@ -11,8 +11,13 @@ def gen_dealer():
             return card
 
 
-def gen_player():
-    hand = [gen_dealer() for _ in range(5)]
-    print(f"Player's hand: {hand}")
-    return hand
 
+
+def gen_hand(num_cards=2):
+    return [gen_card() for _ in range(num_cards)]
+def flop():
+    return [gen_card() for _ in range(3)]
+def turn():
+    return [gen_card() for _ in range(1)]
+def river():
+    return [gen_card() for _ in range(1)]
