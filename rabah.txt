@@ -1,4 +1,0 @@
-Player: rabah
-Hand: [(5, 'Hearts'), (11, 'Diamonds')]
-Flop: [(13, 'Spades'), (12, 'Clubs'), (9, 'Diamonds')]
-Hand Rank: 1

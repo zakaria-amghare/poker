@@ -1,8 +1,10 @@
 import random
-used_cards = set()
+from card import Card
+
+used_cards : set[Card] = set()
 def gen_card():
     while True:
-        card = (
+        card:Card = Card(
             random.randint(2, 14),
             random.choice(['Hearts', 'Diamonds', 'Clubs', 'Spades'])
         )
