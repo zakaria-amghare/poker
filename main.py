@@ -36,22 +36,26 @@ for i in range(num_players):
             b = False
         
 
-bigblindIndex = random.randint(0, num_players-1)
+bigblindIndex = 1
 smallblindIndex = bigblindIndex - 1 % num_players     
 
 playerList.append(Player(playerNameSet[bigblindIndex],Role.BIGBLIND))
 playerList.append(Player(playerNameSet[smallblindIndex],Role.SMALLBLIND))
 
-for i in range(num_players):
-    if(i != bigblindIndex and i != smallblindIndex):
-        playerList.append(Player(playerNameSet[i],Role.NORMAL))
 
 
-print(playerList)
 
-flop = Card_Generator.flop()
-turn = Card_Generator.turn()
-river = Card_Generator.river()
+print("Player List: "+str(playerList))
+for player in playerList:
+    player.hand = Card_Generator.gen_hand()
+    print(f"{player.name}'s hand: {player.hand}")
+    print("make a bet")
+    decision = player.action(30)
+    time.sleep(1)
+    if decision == "fold":
+        print(f"{player.name} folds.")
+    playerList.remove(player)
+    print(f"Remaining players: {[p.name for p in playerList]}")
 
 
 
