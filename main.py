@@ -1,11 +1,10 @@
-import os
-import time
-import Card_Generator
-import evaluate_hand
 from player import Player
 from Game_Settings import minNbPlayer,maxNbPlayer
 from playerRole import Role
+from table import Table
+from tableState import tableState
 import random
+from action import returnPossibleAction,takeAction
 
 num_players = 0
 playerList : list[Player] = list()
@@ -36,26 +35,39 @@ for i in range(num_players):
             b = False
         
 
-bigblindIndex = 1
+bigblindIndex =  1
 smallblindIndex = bigblindIndex - 1 % num_players     
 
-playerList.append(Player(playerNameSet[bigblindIndex],Role.BIGBLIND))
 playerList.append(Player(playerNameSet[smallblindIndex],Role.SMALLBLIND))
+playerList.append(Player(playerNameSet[bigblindIndex],Role.BIGBLIND))
 
 
 
 
-print("Player List: "+str(playerList))
-for player in playerList:
-    player.hand = Card_Generator.gen_hand()
-    print(f"{player.name}'s hand: {player.hand}")
-    print("make a bet")
-    decision = player.action(30)
-    time.sleep(1)
-    if decision == "fold":
-        print(f"{player.name} folds.")
-    playerList.remove(player)
-    print(f"Remaining players: {[p.name for p in playerList]}")
+print("Player List: ",playerList)
+
+
+
+table :Table  = Table()
+
+while table.currentState != tableState.RIVEN :
+
+    for i in range(len(playerList)) :
+        if(not playerList[i].floded):
+            choice:str = ""
+            print("\n",table)
+            print("\n",playerList[i])
+            actionList :list[str] = returnPossibleAction(playerList[i],table)
+            if(actionList[2] == ""):
+                choice = int(input(f"1. {actionList[0]}\n2. {actionList[1]}\n"))
+            
+            choice = int(input (f"1. {actionList[0]}\n2. {actionList[1]}\n3. {actionList[2]}\n"))
+
+            print(takeAction(playerList,playerList[i],table,actionList[choice-1]))
+        
+    table.nextState()
+    
+    
 
 
 
