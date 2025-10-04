@@ -42,9 +42,8 @@ def takeAction(playerList:list[Player],player:Player,table:Table,choice:str):
         return f"{player.name} called all in"
 
     elif("call" in choice):
-        pot:int = table.pot
-        table.pot += player.currentMoney
-        player.currentMoney -= pot
+        table.pot += table.bet
+        player.currentMoney = player.currentMoney-table.bet
         player.paidRaise = True
         return f"{player.name} called"
 
@@ -66,7 +65,6 @@ def takeAction(playerList:list[Player],player:Player,table:Table,choice:str):
         player.paidRaise = True
         initPaid(playerList)
         return f"{player.name} raised bet"
-
 
 def initPaid(listPlayer:list[Player],raisedPlayer:Player):
     for player in listPlayer:

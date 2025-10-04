@@ -16,9 +16,9 @@ class Table:
 
     def __str__(self):
         if self.currentState == tableState.PREFLOP:
-            return f"state : {self.currentState.name.lower()} , pot {self.pot}$ , bet{self.bet}$ "
+            return f"state : {self.currentState.name.lower()} \n pot {self.pot}$ \n bet{self.bet}$ "
         else:
-            return f"state : {self.currentState.name.lower()} , pot {self.pot}$ \n cardTable {self.cardSet} bet{self.bet}$"
+            return f"state : {self.currentState.name.lower()} \n pot {self.pot}$ \n cardTable {self.cardSet} bet{self.bet}$"
         
     def nextState(self):
         self.currentState = tableState(self.currentState.value)

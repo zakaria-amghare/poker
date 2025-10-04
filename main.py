@@ -1,5 +1,6 @@
 from player import Player
 from Game_Settings import minNbPlayer,maxNbPlayer
+import player
 from playerRole import Role
 from table import Table
 from tableState import tableState
@@ -44,13 +45,14 @@ playerList.append(Player(playerNameSet[bigblindIndex],Role.BIGBLIND))
 
 
 
-print("Player List: ",playerList)
+print("Player List: ")
+print(*playerList, sep = "\n")
 
 
 
 table :Table  = Table()
 
-while table.currentState != tableState.RIVEN :
+while table.currentState != tableState.RIVER :
 
     for i in range(len(playerList)) :
         if(not playerList[i].floded):
@@ -64,7 +66,9 @@ while table.currentState != tableState.RIVEN :
             choice = int(input (f"1. {actionList[0]}\n2. {actionList[1]}\n3. {actionList[2]}\n"))
 
             print(takeAction(playerList,playerList[i],table,actionList[choice-1]))
-        
+    if (player.folded for player in playerList):
+        print("All players folded. Ending the game.")
+        break    
     table.nextState()
     
     
