@@ -5,6 +5,7 @@ from playerRole import Role
 from table import Table
 from tableState import tableState
 import random
+import evaluate_hand
 from action import returnPossibleAction,takeAction
 
 num_players = 0
@@ -51,7 +52,7 @@ print(*playerList, sep = "\n")
 
 
 table :Table  = Table()
-
+# add a condition for the winer to have all the mony
 while table.currentState != tableState.RIVER :
 
     for i in range(len(playerList)) :
@@ -66,12 +67,17 @@ while table.currentState != tableState.RIVER :
             choice = int(input (f"1. {actionList[0]}\n2. {actionList[1]}\n3. {actionList[2]}\n"))
 
             print(takeAction(playerList,playerList[i],table,actionList[choice-1]))
-    if (player.folded for player in playerList):
-        print("All players folded. Ending the game.")
-        break    
+    if all(playerList[i].floded):
+        break
     table.nextState()
-    
-    
+dict = {}
+for player_in_game in playerList:
+    if player_in_game.folded:
+        print("evaluate hand")
+        val = evaluate_hand.evaluate_hand(table.cardSet+player_in_game)
+        print(val)
+        dict[val]=player_in_game
 
-
-
+winners=dict[max([p for p in dict])]
+for winner in winners:
+    winner.currentMoney+=table.pot/winners.num

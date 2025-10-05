@@ -11,7 +11,7 @@ class Player:
     BLIND:int
     cardSet : set[Card] = set ()
     paidRaise:bool 
-    floded:bool
+    folded:bool
     cardSet : set[Card] =set()
 
     def __init__(self, name:str ,role:Role):

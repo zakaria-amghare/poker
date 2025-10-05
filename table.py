@@ -7,7 +7,7 @@ class Table:
     cardSet: set[Card] = set()
     pot:int 
     bet:int 
-
+    players: players
     def __init__(self):
         self.currentState = tableState.PREFLOP
         self.pot = blind + blind/2
