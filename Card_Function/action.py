@@ -1,8 +1,16 @@
-from player import Player
-from table import Table
-from playerRole import Role
-from tableState import tableState
+from Classes.player import Player
+from Classes.table import Table
+from Classes.playerRole import Role
+from Classes.tableState import tableState
 from Game_Settings import blind
+
+def allBitched(playerList:list[Player]):
+    notFolded:int = 0
+    for player in playerList:
+        if(not player.folded):
+            notFolded+=1
+    
+    return notFolded==1
 
 def returnPossibleAction(player:Player,table:Table):
     actionList : list[str] = [""] * 3
@@ -32,7 +40,7 @@ def takeAction(playerList:list[Player],player:Player,table:Table,choice:str):
     if("check" in choice):
         return f"{player.name} checked"
     elif("fold" in choice):
-        player.floded = True
+        player.folded = True
         return f"{player.name} folded"
     
     elif ("call all in" in choice):

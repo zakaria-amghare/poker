@@ -1,65 +1,22 @@
-from player import Player
 from Game_Settings import minNbPlayer,maxNbPlayer
-import player
-from playerRole import Role
-from table import Table
-from tableState import tableState
-import random
-import evaluate_hand
-from action import returnPossibleAction,takeAction
-
-num_players = 0
-playerList : list[Player] = list()
-playerNameSet : list[str] = list()
-while num_players > maxNbPlayer or num_players < minNbPlayer :
-    try:
-        num_players = int(input(f"Enter number of players ({minNbPlayer}-{maxNbPlayer}): "))
-    except ValueError:
-        print("Invalid input. Please enter a number between ", minNbPlayer," and ",maxNbPlayer)
-
-for i in range(num_players):
-    
-    name:str =""
-
-    b:bool = True
-
-    while b:
-        name = input(f"Enter name for Player {i + 1}: ")
-        
-        if name == "":
-            print("Name can't be empty")
-        
-        elif name in playerNameSet: 
-            print("Name Must Be Unique")
-
-        else:
-            playerNameSet.append(name)
-            b = False
-        
-
-bigblindIndex =  1
-smallblindIndex = bigblindIndex - 1 % num_players     
-
-playerList.append(Player(playerNameSet[smallblindIndex],Role.SMALLBLIND))
-playerList.append(Player(playerNameSet[bigblindIndex],Role.BIGBLIND))
-
-
-
-
-print("Player List: ")
-print(*playerList, sep = "\n")
-
-
-
+import Classes.player
+from Classes.playerRole import Role
+from Classes.table import Table
+from Classes.tableState import tableState
+from Card_Function.Card_Generator import gen_hand,reset
+from Card_Function.generating_players import PlayerList
+from Card_Function.action import returnPossibleAction,takeAction,allBitched
+playerList=PlayerList()
 table :Table  = Table()
-# add a condition for the winer to have all the mony
-while table.currentState != tableState.RIVER :
-
+while table.currentState != tableState.SHOWDOWN :
+    reset()
     for i in range(len(playerList)) :
-        if(not playerList[i].floded):
+        if(not playerList[i].folded):
+            table.Up_Date_The_Card()
             choice:str = ""
             print("\n",table)
             print("\n",playerList[i])
+            playerList[i].Give_Card(gen_hand)
             actionList :list[str] = returnPossibleAction(playerList[i],table)
             if(actionList[2] == ""):
                 choice = int(input(f"1. {actionList[0]}\n2. {actionList[1]}\n"))
@@ -67,17 +24,26 @@ while table.currentState != tableState.RIVER :
             choice = int(input (f"1. {actionList[0]}\n2. {actionList[1]}\n3. {actionList[2]}\n"))
 
             print(takeAction(playerList,playerList[i],table,actionList[choice-1]))
-    if all(playerList[i].floded):
-        break
+            print(playerList[i])
+            if (allBitched(playerList)):
+                table.currentState = tableState.RIVER
+                break
     table.nextState()
 dict = {}
+print(playerList,"1")
 for player_in_game in playerList:
-    if player_in_game.folded:
-        print("evaluate hand")
-        val = evaluate_hand.evaluate_hand(table.cardSet+player_in_game)
-        print(val)
-        dict[val]=player_in_game
 
-winners=dict[max([p for p in dict])]
-for winner in winners:
-    winner.currentMoney+=table.pot/winners.num
+    if not player_in_game.folded:
+        hand = table.cardSet.union(player_in_game.cardSet)
+        print(hand,"2")
+        for hehe in list(player_in_game.cardSet):
+            print(hehe,"hehe")
+            print(type(hehe),"hehe")
+#        val=evaluate_hand.evaluate_hand(hand)
+#        print(val)
+#        dict[val]=player_in_game
+#
+#winners=dict[max([p for p in dict])]
+#for winner in winners:
+#    winner.currentMoney+=table.pot/winners.num
+#

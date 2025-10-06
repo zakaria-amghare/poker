@@ -1,5 +1,5 @@
 import random
-from card import Card
+from Classes.card import Card
 
 used_cards : set[Card] = set()
 def gen_card():
@@ -12,14 +12,14 @@ def gen_card():
             used_cards.add(card)
             return card
 
-
-
-
-def gen_hand(num_cards=2):
-    return [gen_card() for _ in range(num_cards)]
-def flop():
+def gen_hand():
+    return [gen_card() for _ in range(2)]
+def gen_flop():
     return [gen_card() for _ in range(3)]
-def turn():
+def gen_turn():
     return [gen_card() for _ in range(1)]
-def river():
+def gen_river():
     return [gen_card() for _ in range(1)]
+
+def reset():
+    used_cards.clear()

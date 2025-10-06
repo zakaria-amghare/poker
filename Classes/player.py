@@ -1,6 +1,6 @@
-from playerRole import Role
+from Classes.playerRole import Role
 from Game_Settings import startingMoney,blind
-from card import Card
+from Classes.card import Card
 actions = ["fold","check","call","raise","all-in"]
 class Player:
     firstAction:str = "check"
@@ -12,11 +12,11 @@ class Player:
     cardSet : set[Card] = set ()
     paidRaise:bool 
     folded:bool
-    cardSet : set[Card] =set()
+    CcardSet : set[Card] =set()
 
     def __init__(self, name:str ,role:Role):
         self.paidRaise = True
-        self.floded = False
+        self.folded = False
         self.name = name
         self.currentRank = 1
         self.role = role
@@ -28,9 +28,12 @@ class Player:
             self.BLIND = blind/2
 
     def __str__(self):
-        return f"name : {self.name} , role {self.role}"
+        return f"name : {self.name} , role {self.role} , folded {self.folded} , currentMoney {self.currentMoney}$\n"
     
     def __repr__(self):
         return self.__str__()
+    def Give_Card(self,hand):
+        self.cardSet=hand
+        
     
         

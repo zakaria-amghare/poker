@@ -1,4 +1,4 @@
-import Calculate_Winner
+import Card_Function.Calculate_Winner as Calculate_Winner
 
 hand_rankings = {
         "Royal Flush": 10,

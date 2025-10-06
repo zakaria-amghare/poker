@@ -5,3 +5,4 @@ class tableState(Enum):
     FLOP = 2
     TURN = 3
     RIVER = 4
+    SHOWDOWN = 5
