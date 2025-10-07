@@ -5,7 +5,7 @@ from Card_Function.Card_Generator import *
 
 class Table:
     currentState:tableState
-    cardSet: set[Card] = set()
+    cardList: list[Card] = list()
     pot:int 
     bet:int 
     folded_players: int = 0
@@ -19,15 +19,15 @@ class Table:
         if self.currentState == tableState.PREFLOP:
             return f"state : {self.currentState.name.lower()} \n pot {self.pot}$ \n bet{self.bet}$ "
         else:
-            return f"state : {self.currentState.name.lower()} \n pot {self.pot}$ \n cardTable {self.cardSet} bet{self.bet}$"
+            return f"state : {self.currentState.name.lower()} \n pot {self.pot}$ \n cardTable {self.cardList} bet{self.bet}$"
         
     def nextState(self):
         self.currentState = tableState(self.currentState.value+1)
 
     def Up_Date_The_Card(self):
         if self.currentState == 1:
-            self.cardSet == gen_flop()
+            self.cardList == gen_flop()
         elif self.currentState == 2:
-            self.cardSet.union(gen_river())
+            self.cardList+gen_river()
         else:   
-            self.cardSet.union(gen_river())
+            self.cardList+gen_river()

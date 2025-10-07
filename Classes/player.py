@@ -9,10 +9,9 @@ class Player:
     currentMoney:int
     role:Role
     BLIND:int
-    cardSet : set[Card] = set ()
+    cardlist : list[Card] = list ()
     paidRaise:bool 
     folded:bool
-    CcardSet : set[Card] =set()
 
     def __init__(self, name:str ,role:Role):
         self.paidRaise = True
@@ -33,7 +32,7 @@ class Player:
     def __repr__(self):
         return self.__str__()
     def Give_Card(self,hand):
-        self.cardSet=hand
+        self.cardlist=hand
         
     
         
