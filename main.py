@@ -3,6 +3,7 @@ from Classes.table import Table
 from Classes.tableState import tableState
 from Card_Function.round import Player_choice,distrebut
 from Card_Function.action import takeAction,allBitched
+from Card_Function.evaluate_hand import get_winners
 
 from termcolor import colored 
 
@@ -23,4 +24,8 @@ while table.currentState != tableState.SHOWDOWN:
             break
     table.Up_Date_The_Card            
     table.nextState()
-    print(colored(f"\n\n table==>{table}","blue"))
+    print(colored(f"\n\n table==>{table}\n","blue"))
+for p in testplayer:
+    p.cardlist+=table.cardList
+print(colored(get_winners(testplayer),"red"))
+

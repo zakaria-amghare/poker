@@ -1,4 +1,5 @@
 import Card_Function.Calculate_Winner as Calculate_Winner
+from Classes.player import Player
 
 hand_rankings = {
         "Royal Flush": 10,
@@ -43,3 +44,10 @@ def evaluate_hand(hand):
         return hand_rankings["One Pair"]
     else:
         return hand_rankings["High Card"]
+    
+def get_winners(player_list: list[Player]) -> list[Player]:
+    active_players = [p for p in player_list if not p.folded]
+    for ap in active_players :
+        ap.currentRank=evaluate_hand(ap.cardlist)
+    best_rank = max(p.currentRank for p in active_players)
+    return [p for p in active_players if p.currentRank == best_rank]
