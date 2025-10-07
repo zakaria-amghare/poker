@@ -27,11 +27,11 @@ class Table:
         self.currentState = tableState(self.currentState.value+1)
 
     def Up_Date_The_Card(self):
-        if self.currentState == 1:
-            self.cardList == gen_flop()
-        elif self.currentState == 2:
-            self.cardList+gen_river()
-        else:   
+        if self.currentState == tableState.FLOP:
+            self.cardList = gen_flop()
+        elif self.currentState == tableState.TURN:
+            self.cardList+gen_turn()
+        elif self.currentState == tableState.RIVER:   
             self.cardList+gen_river()
 
     def resetBet(self):

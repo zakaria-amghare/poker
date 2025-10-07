@@ -40,7 +40,7 @@ while table.currentState != tableState.SHOWDOWN:
                 break
 
             if( index==(len(playerList)-1) and not allPayedRaise(playerList) ):
-                print("payyyyyyyyyyyyyyyyyyyyyy")
+                print(colored("payyyyyyyyyyyyyyyyyyyyyy","yellow"))
                 index = 0
                 hasReachedEnd = True
                 continue
