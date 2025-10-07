@@ -32,6 +32,10 @@ def Return_PlayerList():
 
     playerList.append(Player(playerNameSet[smallblindIndex],Role.SMALLBLIND))
     playerList.append(Player(playerNameSet[bigblindIndex],Role.BIGBLIND))
+    playerList[bigblindIndex].currentMoney-= playerList[bigblindIndex].BLIND
+    playerList[bigblindIndex].contributedMoneyRound+= playerList[bigblindIndex].BLIND
+    playerList[smallblindIndex].currentMoney-= playerList[smallblindIndex].BLIND
+    playerList[smallblindIndex].contributedMoneyRound+= playerList[smallblindIndex].BLIND
     playerNameSet.remove(playerList[0].name)
     playerNameSet.remove(playerList[1].name)
     for name in playerNameSet:
@@ -39,15 +43,3 @@ def Return_PlayerList():
     print(colored("Player List: ","green"))
     print(colored(playerList,"green"))
     return playerList
-
-def testList():
-    Playerlist: list[Player] = list()
-    for i in range(3):
-        name="hehe"+str(i)
-        if i ==0 :
-            Playerlist.append(Player(name,Role.SMALLBLIND))
-        if i ==1 :
-            Playerlist.append(Player(name,Role.BIGBLIND))
-        if i ==2 :
-            Playerlist.append(Player(name,Role.NORMAL))
-    return Playerlist

@@ -8,18 +8,21 @@ class Player:
     currentMoney:int
     role:Role
     BLIND:int
+    contributedMoneyRound:int
     cardlist : list[Card] = list ()
     paidRaise:bool 
     folded:bool
 
     def __init__(self, name:str ,role:Role):
-        self.paidRaise = True
+        self.paidRaise = False
         self.folded = False
+        self.contributedMoneyRound = 0
         self.name = name
         self.currentRank = 1
         self.role = role
         self.currentMoney = startingMoney
         if(role == Role.BIGBLIND):
+            self.paidRaise = True
             self.BLIND = blind
         elif(role == Role.SMALLBLIND):
             self.BLIND = blind/2
@@ -29,6 +32,9 @@ class Player:
     
     def __repr__(self):
         return self.__str__()
+    
+    def resetContributedMoney(self):
+        self.contributedMoneyRound = 0
         
     
         

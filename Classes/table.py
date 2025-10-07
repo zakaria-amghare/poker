@@ -8,18 +8,20 @@ class Table:
     cardList: list[Card] = list()
     pot:int 
     bet:int 
+    minRaise:int
     folded_players: int = 0
     def __init__(self):
         self.currentState = tableState.PREFLOP
         self.pot = blind + blind/2
-        self.bet = 0
+        self.bet = blind
+        self.minRaise=blind*2
 
 
     def __str__(self):
         if self.currentState == tableState.PREFLOP:
-            return f"state : {self.currentState.name.lower()} \n pot {self.pot}$ \n bet{self.bet}$ "
+            return f"state : {self.currentState.name.lower()}\n pot {self.pot}$\n bet{self.bet}$ "
         else:
-            return f"state : {self.currentState.name.lower()} \n pot {self.pot}$ \n cardTable {self.cardList} bet{self.bet}$"
+            return f"state : {self.currentState.name.lower()}\n pot {self.pot}$\n cardTable {self.cardList}\nbet{self.bet}$"
         
     def nextState(self):
         self.currentState = tableState(self.currentState.value+1)
@@ -31,3 +33,7 @@ class Table:
             self.cardList+gen_river()
         else:   
             self.cardList+gen_river()
+
+    def resetBet(self):
+        self.bet = 0
+        self.minRaise = blind

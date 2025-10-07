@@ -1,9 +1,10 @@
-from Card_Function.generating_players import Return_PlayerList,testList
+from Card_Function.generating_players import Return_PlayerList
 from Classes.table import Table
 from Classes.tableState import tableState
-from Card_Function.round import Player_choice,distrebut
-from Card_Function.action import takeAction,allBitched
+from Card_Function.round import Player_choice,distrebut,resetContributedMoneyForAll
+from Card_Function.action import takeAction,allBitched,allIn,allPayedRaise
 from Card_Function.evaluate_hand import get_winners
+from Classes.player import Player
 
 from termcolor import colored 
 
@@ -12,20 +13,51 @@ from termcolor import colored
 # i will use predefidned list sor the test to be faster
 
 table:Table=Table()
-testplayer=testList()
-distrebut(testplayer)
+playerList:list[Player]=Return_PlayerList()
+distrebut(playerList)
+
+hasReachedEnd:bool = False
+index:int = 0
 
 while table.currentState != tableState.SHOWDOWN:
-    for i in range(len(testplayer)):
-        if not testplayer[i].folded:
-            Player_choice(table,testplayer[i],testplayer)
-        if (allBitched(testplayer)):
-            table.currentState = tableState.RIVER
-            break
+    print(table)
+    while index < len(playerList):
+        print("index top , ",index)
+        if(not(hasReachedEnd and playerList[index].paidRaise)):
+            if not playerList[index].folded:
+                print(playerList[index])
+                print(Player_choice(table,playerList[index],playerList))
+
+            if (allBitched(playerList)):
+                table.currentState = tableState.RIVER
+                break
+
+            if(allIn(playerList)):
+                table.currentState = tableState.RIVER
+                break
+
+            if(hasReachedEnd and allPayedRaise(playerList)):
+                break
+
+            if( index==(len(playerList)-1) and not allPayedRaise(playerList) ):
+                print("payyyyyyyyyyyyyyyyyyyyyy")
+                index = 0
+                hasReachedEnd = True
+            
+            if(not hasReachedEnd):
+                index= index+1
+
+            print("index down , ",index)
+
+
+    index=0
+    hasReachedEnd= False
     table.Up_Date_The_Card            
     table.nextState()
-    print(colored(f"\n\n table==>{table}\n","blue"))
-for p in testplayer:
+    resetContributedMoneyForAll(playerList)
+    table.resetBet()
+
+for p in playerList:
     p.cardlist+=table.cardList
-print(colored(get_winners(testplayer),"red"))
+print(colored(get_winners(playerList),"red"))
 

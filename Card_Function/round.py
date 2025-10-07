@@ -14,5 +14,10 @@ def Player_choice(table:Table,player:Player,playerList:list[Player]):
     if(actionList[2] == ""):
          choice = int(input(colored(f"1. {actionList[0]}\n2. {actionList[1]}\n","blue")))
     choice = int(input (colored(f"1. {actionList[0]}\n2. {actionList[1]}\n3. {actionList[2]}\n","green")))
-    takeAction(playerList,player,table,actionList[choice-1])
-    return str(choice)   
+    return takeAction(playerList,player,table,actionList[choice-1])
+
+
+def resetContributedMoneyForAll(playerList:list[Player])->None:
+        for player in playerList:
+             player.resetContributedMoney()
+       

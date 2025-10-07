@@ -4,6 +4,16 @@ from Classes.playerRole import Role
 from Classes.tableState import tableState
 from Game_Settings import blind
 
+def allIn(playerList:list[Player]):
+    noMoney:int = 0
+
+    for player in playerList:
+        if(player.currentMoney>0):
+            noMoney+=noMoney
+
+    return noMoney==len(playerList)
+
+
 def allBitched(playerList:list[Player]):
     notFolded:int = 0
     for player in playerList:
@@ -16,22 +26,17 @@ def returnPossibleAction(player:Player,table:Table):
     actionList : list[str] = [""] * 3
     actionList[1] =  "fold"
     
-    if(player.currentMoney > table.bet ):
+    if(player.currentMoney >= table.minRaise ):
         actionList[2] = "bet"
-    
-    if(player.paidRaise):
-        actionList[0] = "check"
-    
-    elif (player.currentMoney> table.bet):
-        actionList[1] = f"call({table.bet})"
-    
+
+    callValue:int = table.bet - player.contributedMoneyRound
+
+    if(callValue>0):
+        actionList[0] = f"call({callValue})"
+    elif(callValue<0):
+        actionList[0] =  f"call all in({callValue})"
     else:
-        actionList[1] = f"call all in({table.bet})"
-
-        
-
-    if(player.role == Role.SMALLBLIND and table.currentState == tableState.PREFLOP ):
-        actionList[0] = f"call({player.BLIND}$)"
+        actionList[0] = "check"
         
     
     return actionList
@@ -50,28 +55,27 @@ def takeAction(playerList:list[Player],player:Player,table:Table,choice:str):
         return f"{player.name} called all in"
 
     elif("call" in choice):
-        table.pot += table.bet
-        player.currentMoney = player.currentMoney-table.bet
+        callValue:int= table.bet -player.contributedMoneyRound
+        table.pot += callValue
+        player.currentMoney -= callValue
+        
         player.paidRaise = True
+        player.contributedMoneyRound+= callValue
         return f"{player.name} called"
 
     elif("bet" in choice):
-        minBet:int = 0
-        if(table.currentState == tableState.PREFLOP):
-            minBet = blind
-        else:
-            minBet = table.bet
         
-        playerBet:int=input(f"give bet ({minBet}-{player.currentMoney})")
+        playerBet:int=int(input(f"give bet ({table.minRaise}-{player.currentMoney})"))
 
-        while(playerBet< minBet or playerBet>player.currentMoney):
-            playerBet:int=input(f"give bet ({minBet}-{player.currentMoney})")
+        while(playerBet< table.minRaise or playerBet>player.currentMoney):
+            playerBet:int=int(input(f"give bet ({table.minRaise}-{player.currentMoney})"))
 
         player.currentMoney -= playerBet
-        table.bet-=playerBet  + ( playerBet - table.bet)
+        table.minRaise= playerBet - table.bet
+        table.bet=playerBet 
         table.pot+=playerBet
         player.paidRaise = True
-        initPaid(playerList)
+        initPaid(playerList,player)
         return f"{player.name} raised bet"
 
 def initPaid(listPlayer:list[Player],raisedPlayer:Player):
@@ -80,6 +84,11 @@ def initPaid(listPlayer:list[Player],raisedPlayer:Player):
             player.paidRaise = False
 
 
+def allPayedRaise(listPlayer:list[Player]):
+    
+    allPayed:bool = True
 
+    for player in listPlayer:
+           allPayed = allPayed and player.paidRaise
 
-
+    return allPayed        
