@@ -40,7 +40,7 @@ while table.currentState != tableState.SHOWDOWN:
                 break
 
             if( index==(len(playerList)-1) and not allPayedRaise(playerList) ):
-                print("payyyyyyyyyyyyyyyyyyyyyy")
+                print(colored("payyyyyyyyyyyyyyyyyyyyyy","yellow"))
                 index = 0
                 hasReachedEnd = True
             
@@ -52,8 +52,8 @@ while table.currentState != tableState.SHOWDOWN:
 
     index=0
     hasReachedEnd= False
-    table.Up_Date_The_Card            
     table.nextState()
+    table.Up_Date_The_Card            
     resetContributedMoneyForAll(playerList)
     table.resetBet()
 
