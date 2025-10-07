@@ -43,17 +43,18 @@ while table.currentState != tableState.SHOWDOWN:
                 print("payyyyyyyyyyyyyyyyyyyyyy")
                 index = 0
                 hasReachedEnd = True
+                continue
             
-            if(not hasReachedEnd):
-                index= index+1
+           
+        index= index+1
 
-            print("index down , ",index)
+        print("index down , ",index)
 
 
     index=0
     hasReachedEnd= False
-    table.Up_Date_The_Card            
     table.nextState()
+    table.Up_Date_The_Card()            
     resetContributedMoneyForAll(playerList)
     table.resetBet()
 
