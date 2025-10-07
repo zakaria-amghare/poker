@@ -1,9 +1,8 @@
 from Classes.playerRole import Role
 from Game_Settings import startingMoney,blind
 from Classes.card import Card
-actions = ["fold","check","call","raise","all-in"]
+
 class Player:
-    firstAction:str = "check"
     name:str
     currentRank:int
     currentMoney:int
@@ -22,7 +21,6 @@ class Player:
         self.currentMoney = startingMoney
         if(role == Role.BIGBLIND):
             self.BLIND = blind
-            self.firstAction = "call"
         elif(role == Role.SMALLBLIND):
             self.BLIND = blind/2
 
@@ -31,8 +29,6 @@ class Player:
     
     def __repr__(self):
         return self.__str__()
-    def Give_Card(self,hand):
-        self.cardlist=hand
         
     
         
