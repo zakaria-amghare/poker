@@ -36,13 +36,10 @@ def Return_PlayerList():
     playerNameSet.remove(playerList[1].name)
     for name in playerNameSet:
         playerList.append(Player(name,Role.NORMAL))
-
-
-
-
     print(colored("Player List: ","green"))
     print(colored(playerList,"green"))
     return playerList
+
 def testList():
     Playerlist: list[Player] = list()
     for i in range(3):
