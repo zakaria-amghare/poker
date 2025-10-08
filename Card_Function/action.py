@@ -60,7 +60,7 @@ def takeAction(playerList:list[Player],player:Player,table:Table,choice:str):
         player.currentMoney -= callValue
         
         player.paidRaise = True
-        player.contributedMoneyRound+= callValue
+        player.contributedMoneyRound= table.bet
         return f"{player.name} called"
 
     elif("bet" in choice):
@@ -70,11 +70,13 @@ def takeAction(playerList:list[Player],player:Player,table:Table,choice:str):
         while(playerBet< table.minRaise or playerBet>player.currentMoney):
             playerBet:int=int(input(f"give bet ({table.minTotalRaise}-{player.currentMoney})"))
 
-        player.currentMoney -= playerBet
+        raiseAmount:int = playerBet - player.contributedMoneyRound
+        player.currentMoney -= raiseAmount
+        table.pot += raiseAmount
         table.minRaise= playerBet - table.bet
         table.minTotalRaise = playerBet+table.minRaise
         table.bet=playerBet 
-        table.pot+=playerBet
+        player.contributedMoneyRound = playerBet
         player.paidRaise = True
         initPaid(playerList,player)
         return f"{player.name} raised bet"

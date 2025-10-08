@@ -28,7 +28,7 @@ class Player:
             self.BLIND = blind/2
 
     def __str__(self):
-        return f"name : {self.name} , role {self.role} , folded {self.folded} , currentMoney {self.currentMoney}$\n"
+        return f"name : {self.name} , role {self.role} , folded {self.folded} , currentMoney {self.currentMoney}$, ContributedMoney {self.contributedMoneyRound}\n"
     
     def __repr__(self):
         return self.__str__()

@@ -50,7 +50,7 @@ while table.currentState != tableState.SHOWDOWN:
 
         print("index down , ",index)
 
-
+    print(playerList)
     index=0
     hasReachedEnd= False
     table.nextState()
