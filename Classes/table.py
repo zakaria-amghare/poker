@@ -9,12 +9,14 @@ class Table:
     pot:int 
     bet:int 
     minRaise:int
+    minTotalRaise:int
     folded_players: int = 0
     def __init__(self):
         self.currentState = tableState.PREFLOP
         self.pot = blind + blind/2
         self.bet = blind
-        self.minRaise=blind*2
+        self.minRaise= self.bet
+        self.minTotalRaise = self.bet+self.minRaise
 
 
     def __str__(self):
@@ -36,4 +38,5 @@ class Table:
 
     def resetBet(self):
         self.bet = 0
-        self.minRaise = blind
+        self.minRaise = 0
+        self.minTotalRaise = 0
