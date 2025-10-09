@@ -67,7 +67,7 @@ def takeAction(playerList:list[Player],player:Player,table:Table,choice:str):
         
         playerBet:int=int(input(f"give bet ({table.minTotalRaise}-{player.currentMoney})"))
 
-        while(playerBet< table.minRaise or playerBet>player.currentMoney):
+        while(playerBet< table.minTotalRaise or playerBet>player.currentMoney):
             playerBet:int=int(input(f"give bet ({table.minTotalRaise}-{player.currentMoney})"))
 
         raiseAmount:int = playerBet - player.contributedMoneyRound
