@@ -1,5 +1,6 @@
 import random
 from Classes.card import Card
+from termcolor import cprint
 
 used_cards : set[Card] = set()
 def gen_card():
@@ -23,3 +24,17 @@ def gen_river():
 
 def reset():
     used_cards.clear()
+
+def show_card(cardlist: list[Card]):
+    for card in cardlist:
+        suit = card[1]  # Assuming card is like ('A', 'Hearts') or ('10', 'Spades')
+        if suit == "Hearts":
+            cprint(card, "red")
+        elif suit == "Diamonds":
+            cprint(card, "magenta")
+        elif suit == "Clubs":
+            cprint(card, "green")
+        elif suit == "Spades":
+            cprint(card, "blue")
+        else:
+            print("error: unknown suit", suit)

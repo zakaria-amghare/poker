@@ -5,6 +5,8 @@ from Card_Function.round import Player_choice,distrebut,resetContributedMoneyFor
 from Card_Function.action import takeAction,allBitched,allIn,allPayedRaise
 from Card_Function.evaluate_hand import get_winners
 from Classes.player import Player
+from Card_Function.Card_Generator import show_card
+
 
 from termcolor import colored 
 
@@ -77,6 +79,7 @@ print(colored("\n\n=== SHOWDOWN ===", "blue", attrs=['bold']))
 for p in playerList:
     p.cardlist+=table.cardList
     if not p.folded:
-        print(colored(f"Player {p.name}'s final hand: {p.cardlist}", "white"))
+        print(colored(f"Player {p.name}'s final hand:", "white"))
+        
 
 print(colored(f"\n🏆 WINNER(S): {get_winners(playerList)}", 'blue', attrs=['bold']))
