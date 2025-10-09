@@ -26,7 +26,7 @@ def returnPossibleAction(player:Player,table:Table):
     actionList : list[str] = [""] * 3
     actionList[1] =  "fold"
     
-    if(player.currentMoney >= table.minRaise ):
+    if(player.currentMoney >= table.minTotalRaise ):
         actionList[2] = "bet"
 
     callValue:int = table.bet - player.contributedMoneyRound
