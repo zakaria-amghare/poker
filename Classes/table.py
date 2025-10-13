@@ -57,7 +57,9 @@ class Table:
         self.bigblindIndex =(self.bigblindIndex +1) % len(self.players_name)
         self.smallblindIndex = (self.bigblindIndex - 1) % len(self.players_name)
         PlayerList[self.bigblindIndex].role=Role.BIGBLIND            
-        PlayerList[self.smallblindIndex].role=Role.SMALLBLIND      
+        PlayerList[self.smallblindIndex].role=Role.SMALLBLIND
+        PlayerList[self.smallblindIndex].currentMoney-= PlayerList[self.smallblindIndex].BLIND
+        PlayerList[self.smallblindIndex].contributedMoneyRound+= PlayerList[self.smallblindIndex].BLIND      
         
 
         
