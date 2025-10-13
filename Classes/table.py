@@ -1,7 +1,9 @@
 from Classes.tableState import tableState
 from Classes.card import Card
+from Classes.player import Player
 from Game_Settings import blind
 from Card_Function.Card_Generator import *
+from Classes.playerRole import *
 
 class Table:
     currentState:tableState
@@ -11,6 +13,9 @@ class Table:
     minRaise:int
     minTotalRaise:int
     folded_players: int = 0
+    players_name : list[str]
+    bigblindIndex =  1
+    smallblindIndex = bigblindIndex - 1 % len(players_name)
     def __init__(self):
         self.currentState = tableState.PREFLOP
         self.pot = blind + blind/2
@@ -40,3 +45,19 @@ class Table:
         self.bet = 0
         self.minRaise = 0
         self.minTotalRaise = 0
+
+    def upDate_Table(self,PlayerList:list[Player]):
+        for player in PlayerList:
+            if player.currentMoney == 0:
+                if player.role == Role.SMALLBLIND:
+                    self.smallblindIndex+=1                
+                PlayerList.remove(player)
+                print("what a loser !!!")
+        
+        self.bigblindIndex =(self.bigblindIndex +1) % len(self.players_name)
+        self.smallblindIndex = (self.bigblindIndex - 1) % len(self.players_name)
+        PlayerList[self.bigblindIndex].role=Role.BIGBLIND            
+        PlayerList[self.smallblindIndex].role=Role.SMALLBLIND      
+        
+
+        

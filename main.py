@@ -15,49 +15,55 @@ from termcolor import colored
 table:Table=Table()
 playerList:list[Player]=Return_PlayerList()
 distrebut(playerList)
+for player in playerList:
+    table.players_name.append(player.name)
 
 hasReachedEnd:bool = False
 index:int = 0
+blind:int = 0
+stillOnTheGame:bool=True
+while stillOnTheGame:
+    while table.currentState != tableState.SHOWDOWN:
+        print(table)
+        while index < len(playerList):
+            print("index top , ",index)
+            if(not(hasReachedEnd and playerList[index].paidRaise)):
+                if not playerList[index].folded:
+                    print(playerList[index])
+                    print(Player_choice(table,playerList[index],playerList))
 
-while table.currentState != tableState.SHOWDOWN:
-    print(table)
-    while index < len(playerList):
-        print("index top , ",index)
-        if(not(hasReachedEnd and playerList[index].paidRaise)):
-            if not playerList[index].folded:
-                print(playerList[index])
-                print(Player_choice(table,playerList[index],playerList))
+                if (allBitched(playerList)):
+                    table.currentState = tableState.RIVER
+                    break
 
-            if (allBitched(playerList)):
-                table.currentState = tableState.RIVER
-                break
+                if(allIn(playerList)):
+                    table.currentState = tableState.RIVER
+                    break
 
-            if(allIn(playerList)):
-                table.currentState = tableState.RIVER
-                break
+                if(hasReachedEnd and allPayedRaise(playerList)):
+                    break
 
-            if(hasReachedEnd and allPayedRaise(playerList)):
-                break
-
-            if( index==(len(playerList)-1) and not allPayedRaise(playerList) ):
-                print(colored("payyyyyyyyyyyyyyyyyyyyyy","yellow"))
-                index = 0
-                hasReachedEnd = True
-                continue
+                if( index==(len(playerList)-1) and not allPayedRaise(playerList) ):
+                    print(colored("payyyyyyyyyyyyyyyyyyyyyy","yellow"))
+                    index = 0
+                    hasReachedEnd = True
+                    continue
+                
             
-           
-        index= index+1
+            index= index+1
 
-        print("index down , ",index)
+            print("index down , ",index)
 
-    print(playerList)
-    index=0
-    hasReachedEnd= False
-    table.nextState()
-    table.Up_Date_The_Card()            
-    resetContributedMoneyForAll(playerList)
-    table.resetBet()
-
+        print(playerList)
+        index=0
+        hasReachedEnd= False
+        table.nextState()
+        table.Up_Date_The_Card()            
+        resetContributedMoneyForAll(playerList)
+        table.resetBet()
+    table.upDate_Table(playerList)
+    if len(playerList)==1:
+        stillOnTheGame=False
 for p in playerList:
     p.cardlist+=table.cardList
 print(colored(get_winners(playerList),"red"))

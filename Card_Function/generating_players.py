@@ -3,6 +3,7 @@ from Classes.playerRole import *
 from Game_Settings import *
 from termcolor import colored
 
+
 def Return_PlayerList():
     num_players = 0
     playerList : list[Player] = list()
@@ -27,17 +28,9 @@ def Return_PlayerList():
                 b = False
     print(playerNameSet)
 
-    bigblindIndex =  1
-    smallblindIndex = bigblindIndex - 1 % num_players     
+         
 
-    playerList.append(Player(playerNameSet[smallblindIndex],Role.SMALLBLIND))
-    playerList.append(Player(playerNameSet[bigblindIndex],Role.BIGBLIND))
-    playerList[bigblindIndex].currentMoney-= playerList[bigblindIndex].BLIND
-    playerList[bigblindIndex].contributedMoneyRound+= playerList[bigblindIndex].BLIND
-    playerList[smallblindIndex].currentMoney-= playerList[smallblindIndex].BLIND
-    playerList[smallblindIndex].contributedMoneyRound+= playerList[smallblindIndex].BLIND
-    playerNameSet.remove(playerList[0].name)
-    playerNameSet.remove(playerList[1].name)
+       
     for name in playerNameSet:
         playerList.append(Player(name,Role.NORMAL))
     print(colored("Player List: ","green"))
