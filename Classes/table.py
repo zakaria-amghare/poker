@@ -13,9 +13,9 @@ class Table:
     minRaise:int
     minTotalRaise:int
     folded_players: int = 0
-    players_name : list[str]
+    players_name : list[str] =[]
     bigblindIndex =  1
-    smallblindIndex = bigblindIndex - 1 % len(players_name)
+    smallblindIndex = bigblindIndex - 1 
     def __init__(self):
         self.currentState = tableState.PREFLOP
         self.pot = blind + blind/2
@@ -45,6 +45,11 @@ class Table:
         self.bet = 0
         self.minRaise = 0
         self.minTotalRaise = 0
+
+
+    def get_the_names(self,PlayerList:list[Player]):
+        for player in PlayerList:
+            self.players_name.append(player.name)
 
     def upDate_Table(self,PlayerList:list[Player]):
         for player in PlayerList:

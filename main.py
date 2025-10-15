@@ -14,6 +14,7 @@ from termcolor import colored
 
 table:Table=Table()
 playerList:list[Player]=Return_PlayerList()
+table.get_the_names(playerList)
 distrebut(playerList)
 for player in playerList:
     table.players_name.append(player.name)
